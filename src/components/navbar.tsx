@@ -4,6 +4,7 @@ import { Equal, X } from 'lucide-react'
 import { Button } from '@/components/liquid-glass-button'
 import React from 'react'
 import { cn } from '@/lib/utils' 
+import { SearchComponent } from './search-bar'
 
 const menuItems = [
     { name: 'Products', href: '#link' },
@@ -11,6 +12,50 @@ const menuItems = [
     { name: 'Pricing', href: '#link' },
     { name: 'About', href: '#link' },
 ]
+
+
+const searchData = [
+  {
+    id: 1,
+    creator: "John Doe",
+    title: "AI-Powered Chatbot",
+    description:
+      "A chatbot that can answer common customer queries using natural language processing.",
+    tags: ["AI", "Chatbot", "Customer Support"],
+  },
+  {
+    id: 2,
+    creator: "Jane Smith",
+    title: "Smart Home Automation",
+    description:
+      "A system to control home appliances via a mobile app using IoT technology.",
+    tags: ["IoT", "Smart Home", "Automation"],
+  },
+  {
+    id: 3,
+    creator: "Alice Johnson",
+    title: "Eco-Friendly Delivery Service",
+    description:
+      "A sustainable delivery service using electric bikes to reduce carbon emissions.",
+    tags: ["Sustainability", "Delivery", "Eco-Friendly"],
+  },
+  {
+    id: 4,
+    creator: "Michael Brown",
+    title: "Blockchain-Based Voting System",
+    description:
+      "A secure and transparent online voting system using blockchain technology.",
+    tags: ["Blockchain", "Security", "Voting"],
+  },
+  {
+    id: 5,
+    creator: "Emma Wilson",
+    title: "AI-Powered Resume Screener",
+    description:
+      "An AI tool that screens resumes and ranks candidates based on job requirements.",
+    tags: ["AI", "Recruitment", "HR Tech"],
+  },
+];
 
 export const Header = () => {
     const [menuState, setMenuState] = React.useState(false)
@@ -45,7 +90,8 @@ export const Header = () => {
                                         fill="#fff200"
                                         d="M268.08,0c-27.4,0-51.41,4.43-72.07,13.26C175.36,4.43,151.35,0,123.95,0H0v324.6h123.95c27.37,0,51.38-4.58,72.07-13.7,20.69,9.12,44.7,13.7,72.07,13.7h123.95V0h-123.95ZM324.09,268.36h-47.91c-20.25,0-37.3-4.05-51.18-12.15-12.28-7.17-21.94-17.41-28.99-30.7h0s0,0,0,0c0,0,0,0,0,0h0c-7.05,13.29-16.71,23.53-28.99,30.7-13.87,8.1-30.93,12.15-51.18,12.15h-47.91V56.24h47.91c19.8,0,36.67,4.01,50.61,12.04,12.51,7.2,22.35,17.47,29.55,30.77h0s0,0,0,0c0,0,0,0,0,0h0c7.2-13.3,17.04-23.57,29.55-30.77,13.95-8.02,30.82-12.04,50.61-12.04h47.91v212.13Z"></path>
                                 </svg>
-                             <p className='font-semibold text-xl tracking-tighter'> Dalim</p>  
+                             <p className='font-semibold text-xl tracking-tighter'>AQI</p> 
+                             <SearchComponent data={searchData}/>
                             </Link>
 
                             <button
@@ -56,9 +102,10 @@ export const Header = () => {
                                 <X className="in-data-[state=active]:rotate-0 in-data-[state=active]:scale-100 in-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
                             </button>
                         </div>
+                        
 
-                        <div className="absolute inset-0 m-auto hidden size-fit lg:block">
-                            <ul className="flex gap-8 text-sm">
+                        <div className="flex items-center gap-8 lg:flex-1 justify-center">
+                            <ul className="hidden lg:flex gap-8 text-sm">
                                 {menuItems.map((item, index) => (
                                     <li key={index}>
                                         <Link
@@ -69,6 +116,7 @@ export const Header = () => {
                                     </li>
                                 ))}
                             </ul>
+                            
                         </div>
 
                         <div className="bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
