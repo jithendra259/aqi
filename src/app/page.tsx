@@ -7,6 +7,7 @@ import MixedBarChartdata from "@/components/barchart";
 
 export default function Home(){
   return (
+    
     <div className="p-10">
       <Home_herocard/>
       <StatisticCard />
