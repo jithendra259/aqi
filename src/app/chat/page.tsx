@@ -19,10 +19,14 @@ type Message = {
 };
 
 export default function Chat() {
+<<<<<<< HEAD
   // Explicitly define the type for messages state
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>(""); // Define input as a string
   const [isLoading, setIsLoading] = useState<boolean>(false); // Define isLoading as a boolean
+=======
+  const [messages, setMessages] = useState([]);
+>>>>>>> 0e607b4 (chat connected to backend)
 
   // Function to send user input to the backend API
   async function sendUserInput(userInput: string): Promise<string> {
@@ -35,6 +39,19 @@ export default function Chat() {
         body: JSON.stringify({ prompt: userInput }),
       });
 
+<<<<<<< HEAD
+=======
+  async function sendUserInput(userInput: string) {
+    try {
+      const response = await fetch("http://localhost:5000/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: userInput }),
+      });
+
+>>>>>>> 0e607b4 (chat connected to backend)
       if (!response.ok) {
         throw new Error(response.statusText);
       }
@@ -48,12 +65,19 @@ export default function Chat() {
     }
   }
 
+<<<<<<< HEAD
   // Handle form submission
+=======
+>>>>>>> 0e607b4 (chat connected to backend)
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return; // Prevent empty submissions
 
+<<<<<<< HEAD
     // Add user message to the chat
+=======
+    // Add user message
+>>>>>>> 0e607b4 (chat connected to backend)
     setMessages((prev) => [
       ...prev,
       {
@@ -66,10 +90,17 @@ export default function Chat() {
     setInput("");
     setIsLoading(true);
 
+<<<<<<< HEAD
     // Call the API and get the AI response
     const aiResponse = await sendUserInput(input);
 
     // Add AI message to the chat
+=======
+    // Call API and get AI response
+    const aiResponse = await sendUserInput(input);
+
+    // Add AI message
+>>>>>>> 0e607b4 (chat connected to backend)
     setMessages((prev) => [
       ...prev,
       {
