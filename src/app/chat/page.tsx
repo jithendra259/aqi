@@ -12,31 +12,39 @@ import { ChatMessageList } from "@/components/ui/chat-mesaage-list";
 import { ChatInput } from "@/components/ui/chat-input";
 
 export default function Chat() {
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      content: "Hello! How can I help you today?",
-      sender: "ai",
-    },
-    {
-      id: 2,
-      content: "I have a question about the component library.",
-      sender: "user",
-    },
-    {
-      id: 3,
-      content: "Sure! I'd be happy to help. What would you like to know?",
-      sender: "ai",
-    },
-  ]);
+  const [messages, setMessages] = useState([]);
 
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  async function sendUserInput(userInput: string) {
+    try {
+      const response = await fetch("http://localhost:5000/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: userInput }),
+      });
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const data = await response.json();
+      console.log("AI response:", data.response);
+      return data.response;
+    } catch (error) {
+      console.error("Error sending user input:", error);
+      return "Error: Unable to get response from AI.";
+    }
+  }
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
+    // Add user message
     setMessages((prev) => [
       ...prev,
       {
@@ -45,28 +53,32 @@ export default function Chat() {
         sender: "user",
       },
     ]);
+
     setInput("");
     setIsLoading(true);
 
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: prev.length + 1,
-          content: "This is an AI response to your message.",
-          sender: "ai",
-        },
-      ]);
-      setIsLoading(false);
-    }, 1000);
+    // Call API and get AI response
+    const aiResponse = await sendUserInput(input);
+
+    // Add AI message
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: prev.length + 1,
+        content: aiResponse,
+        sender: "ai",
+      },
+    ]);
+
+    setIsLoading(false);
   };
 
   const handleAttachFile = () => {
-    //
+    // Implement file attachment if needed
   };
 
   const handleMicrophoneClick = () => {
-    //
+    // Implement microphone input if needed
   };
 
   return (
