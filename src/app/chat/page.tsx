@@ -11,15 +11,23 @@ import {
 import { ChatMessageList } from "@/components/ui/chat-mesaage-list";
 import { ChatInput } from "@/components/ui/chat-input";
 
+// Define the type for messages
+type Message = {
+  id: number;
+  content: string;
+  sender: "user" | "ai"; // Restrict sender to "user" or "ai"
+};
+
 export default function Chat() {
-  const [messages, setMessages] = useState([]);
+  // Explicitly define the type for messages state
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState<string>(""); // Define input as a string
+  const [isLoading, setIsLoading] = useState<boolean>(false); // Define isLoading as a boolean
 
-  const [input, setInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  async function sendUserInput(userInput: string) {
+  // Function to send user input to the backend API
+  async function sendUserInput(userInput: string): Promise<string> {
     try {
-      const response = await fetch("http://localhost:5000/generate", {
+      const response = await fetch("https://aqibackend.onrender.com/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,11 +48,12 @@ export default function Chat() {
     }
   }
 
+  // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim()) return; // Prevent empty submissions
 
-    // Add user message
+    // Add user message to the chat
     setMessages((prev) => [
       ...prev,
       {
@@ -57,10 +66,10 @@ export default function Chat() {
     setInput("");
     setIsLoading(true);
 
-    // Call API and get AI response
+    // Call the API and get the AI response
     const aiResponse = await sendUserInput(input);
 
-    // Add AI message
+    // Add AI message to the chat
     setMessages((prev) => [
       ...prev,
       {

@@ -36,7 +36,7 @@ const SearchComponent = ({ data }: SearchComponentProps) => {
     const lowerCaseQuery = query.toLowerCase().trim();
 
     if (lowerCaseQuery.length > 0) {
-      let results = data.filter((item) =>
+      const results = data.filter((item) =>
         item.title.toLowerCase().includes(lowerCaseQuery)
       );
 
