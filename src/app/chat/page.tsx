@@ -65,19 +65,12 @@ export default function Chat() {
     }
   }
 
-<<<<<<< HEAD
   // Handle form submission
-=======
->>>>>>> 0e607b4 (chat connected to backend)
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return; // Prevent empty submissions
 
-<<<<<<< HEAD
     // Add user message to the chat
-=======
-    // Add user message
->>>>>>> 0e607b4 (chat connected to backend)
     setMessages((prev) => [
       ...prev,
       {
@@ -90,17 +83,10 @@ export default function Chat() {
     setInput("");
     setIsLoading(true);
 
-<<<<<<< HEAD
     // Call the API and get the AI response
     const aiResponse = await sendUserInput(input);
 
     // Add AI message to the chat
-=======
-    // Call API and get AI response
-    const aiResponse = await sendUserInput(input);
-
-    // Add AI message
->>>>>>> 0e607b4 (chat connected to backend)
     setMessages((prev) => [
       ...prev,
       {
