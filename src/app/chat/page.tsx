@@ -19,14 +19,10 @@ type Message = {
 };
 
 export default function Chat() {
-<<<<<<< HEAD
   // Explicitly define the type for messages state
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>(""); // Define input as a string
   const [isLoading, setIsLoading] = useState<boolean>(false); // Define isLoading as a boolean
-=======
-  const [messages, setMessages] = useState([]);
->>>>>>> 0e607b4 (chat connected to backend)
 
   // Function to send user input to the backend API
   async function sendUserInput(userInput: string): Promise<string> {
@@ -39,19 +35,6 @@ export default function Chat() {
         body: JSON.stringify({ prompt: userInput }),
       });
 
-<<<<<<< HEAD
-=======
-  async function sendUserInput(userInput: string) {
-    try {
-      const response = await fetch("http://localhost:5000/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: userInput }),
-      });
-
->>>>>>> 0e607b4 (chat connected to backend)
       if (!response.ok) {
         throw new Error(response.statusText);
       }
