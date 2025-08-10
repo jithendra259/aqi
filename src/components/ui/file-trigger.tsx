@@ -7,14 +7,14 @@ import { Button } from "@/components/ui/button"
 
 export default function  FileTriggerButton() {
   // Demo to show how to get file name to display.
-  let [file, setFile] = React.useState<string[]>()
+  const [file, setFile] = React.useState<string[]>()
 
   return (
     <FileTrigger
       onSelect={(e) => {
         if (!e) return
-        let files = Array.from(e)
-        let filenames = files.map((file) => file.name)
+        const files = Array.from(e)
+        const filenames = files.map((file) => file.name)
         setFile(filenames)
       }}
     >

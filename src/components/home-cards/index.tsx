@@ -158,9 +158,9 @@ export default function StatisticCard() {
                       <Share2 /> Share
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem variant="destructive">
-                      <Trash /> Remove
-                    </DropdownMenuItem>
+                    <DropdownMenuItem className="text-destructive focus:bg-destructive focus:text-destructive-foreground hover:bg-destructive hover:text-destructive-foreground">
+  <Trash /> Remove
+</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </CardToolbar>
