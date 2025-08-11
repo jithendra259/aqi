@@ -15,14 +15,13 @@ import { ChatInput } from "@/components/ui/chat-input";
 type Message = {
   id: number;
   content: string;
-  sender: "user" | "ai"; // Restrict sender to "user" or "ai"
+  sender: "user" | "ai";
 };
 
 export default function Chat() {
-  // Explicitly define the type for messages state
   const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState<string>(""); // Define input as a string
-  const [isLoading, setIsLoading] = useState<boolean>(false); // Define isLoading as a boolean
+  const [input, setInput] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Function to send user input to the backend API
   async function sendUserInput(userInput: string): Promise<string> {
@@ -35,9 +34,7 @@ export default function Chat() {
         body: JSON.stringify({ prompt: userInput }),
       });
 
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
+      if (!response.ok) throw new Error(response.statusText);
 
       const data = await response.json();
       console.log("AI response:", data.response);
@@ -48,46 +45,34 @@ export default function Chat() {
     }
   }
 
-  // Handle form submission
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return; // Prevent empty submissions
+    if (!input.trim()) return;
 
-    // Add user message to the chat
     setMessages((prev) => [
       ...prev,
-      {
-        id: prev.length + 1,
-        content: input,
-        sender: "user",
-      },
+      { id: prev.length + 1, content: input, sender: "user" },
     ]);
 
     setInput("");
     setIsLoading(true);
 
-    // Call the API and get the AI response
     const aiResponse = await sendUserInput(input);
 
-    // Add AI message to the chat
     setMessages((prev) => [
       ...prev,
-      {
-        id: prev.length + 1,
-        content: aiResponse,
-        sender: "ai",
-      },
+      { id: prev.length + 1, content: aiResponse, sender: "ai" },
     ]);
 
     setIsLoading(false);
   };
 
   const handleAttachFile = () => {
-    // Implement file attachment if needed
+    console.log("Attach file clicked");
   };
 
   const handleMicrophoneClick = () => {
-    // Implement microphone input if needed
+    console.log("Microphone clicked");
   };
 
   return (
@@ -142,21 +127,10 @@ export default function Chat() {
           />
           <div className="flex items-center p-3 pt-0 justify-between">
             <div className="flex">
-              <Button
-                variant="ghost"
-                size="icon"
-                type="button"
-                onClick={handleAttachFile}
-              >
+              <Button variant="ghost" size="icon" type="button" onClick={handleAttachFile}>
                 <Paperclip className="size-4" />
               </Button>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                type="button"
-                onClick={handleMicrophoneClick}
-              >
+              <Button variant="ghost" size="icon" type="button" onClick={handleMicrophoneClick}>
                 <Mic className="size-4" />
               </Button>
             </div>
